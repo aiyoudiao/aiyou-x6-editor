@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="open" v-if="!show" @click="open">
-      打开
+      <i class="el-icon-s-fold"></i>
     </div>
     <transition name="modal">
       <div
@@ -11,7 +11,7 @@
       >
         <!-- <div class="close" @click="close" :style="position === 'left' && 'left: auto;right: -44px;box-shadow: 3px 2px 8px 0 #b1b1b1;'"> -->
         <div class="close" @click="close" :style="position === 'left' && 'display: none;'">
-          <i class="el-icon-close"></i>
+          <i class="el-icon-s-unfold"></i>
         </div>
         <div class="header">
           <slot name="header" class="tset">{{ title }}</slot>
@@ -108,7 +108,7 @@ export default {
     text-align: center;
     position: absolute;
     top: 2px;
-    left: -44px;
+    left: -16px;
     cursor: pointer;
     box-shadow: -3px 2px 8px 0 #b1b1b1;
     .el-icon-close {
@@ -127,7 +127,7 @@ export default {
 .open {
     text-align: center;
     position: absolute;
-    top: 95px;
+    top: 3px;
     right: 0px;
     cursor: pointer;
     box-shadow: -3px 2px 8px 0 #b1b1b1;

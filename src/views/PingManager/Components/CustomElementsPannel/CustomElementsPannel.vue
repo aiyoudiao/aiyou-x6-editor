@@ -28,14 +28,14 @@
                   v-model="grid.size"
                   :min="0"
                   :max="30"
-                  @change="changeGrid"
+                  @change="changeGridSize"
                   style="width: 385px"
                 ></el-slider>
               </el-form-item>
               <el-form-item label="网格颜色">
                 <el-color-picker
                   v-model="grid.args.color"
-                  @change="changeGrid"
+                  @change="changeGridColor"
                 />
               </el-form-item>
               <el-form-item label="网格线宽度" style="display: flex">
@@ -43,7 +43,7 @@
                   v-model="grid.args.thickness"
                   :min="0"
                   :max="20"
-                  @change="changeGrid"
+                  @change="changeGridThickness"
                   style="width: 360px"
                 ></el-slider>
               </el-form-item>
@@ -317,15 +317,38 @@ export default {
     changeGrid() {
       this.showGrid ? this.graph.showGrid() : this.graph.hideGrid();
     },
+  
+    // 网格类型
     changeGridType(e) {
       this.grid.type = e;
-      this.changeGrid();
+      this.resetDraw();
     },
-    changeGrid() {
+
+    // 网格大小
+    changeGridSize(e) {
+      this.grid.size = e;
+      this.resetDraw();
+    },
+
+    // 网格颜色
+    changeGridColor(e) {
+      this.grid.args.color = e;
+      this.resetDraw();
+    },
+
+    // 网格线宽度 
+    changeGridThickness(e) {
+      this.grid.args.thickness = e;
+      this.resetDraw();
+    },
+
+    // 重新绘制网格 
+    resetDraw() {
       this.graph.drawGrid({
         ...this.grid,
       });
     },
+
     // 节点设置
     changeStrokeWidth(val) {
       this.selectCell.attr("body/strokeWidth", val);
