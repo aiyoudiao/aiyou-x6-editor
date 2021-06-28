@@ -1,56 +1,42 @@
 <template>
-  <div>
-    <div class="open" v-if="!show" @click="open">
-      打开
-    </div>
-    <transition name="modal">
-      <div
-        class="cus-modal"
-        v-if="show"
-        :style="position === 'left' && 'left: 0px;'"
-      >
-        <!-- <div class="close" @click="close" :style="position === 'left' && 'left: auto;right: -44px;box-shadow: 3px 2px 8px 0 #b1b1b1;'"> -->
-        <div class="close" @click="close" :style="position === 'left' && 'display: none;'">
-          <i class="el-icon-close"></i>
-        </div>
-        <div class="header">
-          <slot name="header" class="tset">{{ title }}</slot>
-        </div>
-        <div class="content">
-          <slot name="content"></slot>
-        </div>
-        <div class="footer">
-          <slot name="footer"></slot>
-        </div>
+  <transition name="modal">
+    <div class="cus-modal" v-if="show" :style="position === 'left' && 'left: 0px;'">
+      <div class="close" @click="close">
+        <i class="el-icon-close"></i>
       </div>
-    </transition>
-  </div>
+      <div class="header">
+        <slot name="header" class="tset">{{ title }}</slot>
+      </div>
+      <div class="content">
+        <slot name="content"></slot>
+      </div>
+      <div class="footer">
+        <slot name="footer"></slot>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
 export default {
-  name: "custom-modal",
+  name: 'custom-modal',
   props: {
     show: {
       required: true,
       type: Boolean,
-      default() {
-        return false;
-      },
+      default () {
+        return false
+      }
     },
     title: String,
     position: String,
   },
-
   methods: {
-    close() {
-      this.$emit("update:show", false);
-    },
-    open() {
-      this.$emit("update:show", true);
-    },
+    close () {
+      this.$emit('update:show', false)
+    }
   },
-};
+}
 </script>
 
 <style lang="scss" scoped>
@@ -121,24 +107,5 @@ export default {
       background-color: #fff;
     }
   }
-  
 }
-
-.open {
-    text-align: center;
-    position: absolute;
-    top: 95px;
-    right: 0px;
-    cursor: pointer;
-    box-shadow: -3px 2px 8px 0 #b1b1b1;
-    .el-icon-open {
-      width: 40px;
-      height: 40px;
-      font-weight: 700;
-      line-height: 40px;
-      font-size: 26px;
-      color: #666666;
-      background-color: #fff;
-    }
-  }
 </style>

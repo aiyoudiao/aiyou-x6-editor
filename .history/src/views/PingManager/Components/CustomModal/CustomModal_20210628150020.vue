@@ -7,10 +7,9 @@
       <div
         class="cus-modal"
         v-if="show"
-        :style="position === 'left' && 'left: 0px;'"
+        
       >
-        <!-- <div class="close" @click="close" :style="position === 'left' && 'left: auto;right: -44px;box-shadow: 3px 2px 8px 0 #b1b1b1;'"> -->
-        <div class="close" @click="close" :style="position === 'left' && 'display: none;'">
+        <div class="close" @click="close">
           <i class="el-icon-close"></i>
         </div>
         <div class="header">

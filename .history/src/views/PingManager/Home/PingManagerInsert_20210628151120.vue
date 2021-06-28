@@ -167,51 +167,7 @@
               </el-collapse-item>
             </el-collapse>
           </el-tab-pane>
-          <el-tab-pane label="功能" name="third">
-            <el-collapse>
-              <el-collapse-item title="基本功能">
-                <div>
-                  <div class="btn-group">
-                    <div
-                      class="btn"
-                      @click="changeMode('edit')"
-                      title="选择模式"
-                    >
-                      <i class="iconfont icon-mousepointershubiao"></i>
-                    </div>
-                    <div
-                      class="btn"
-                      @click="changeMode('drag')"
-                      title="拖拽模式"
-                    >
-                      <i class="iconfont icon-tuozhuai"></i>
-                    </div>
-                  </div>
-                  <div class="btn-group">
-                    <el-tooltip content="删除" placement="bottom">
-                      <div
-                        class="btn"
-                        @click="deleteNode()"
-                        style="margin-top: 5px"
-                      >
-                        <i class="iconfont icon-shanchu"></i>
-                      </div>
-                    </el-tooltip>
-                    <el-tooltip content="保存PNG" placement="bottom">
-                      <div class="btn" @click="saveToPNG()" title="保存">
-                        <i class="iconfont icon-baocun"></i>
-                      </div>
-                    </el-tooltip>
-                    <el-tooltip content="保存JSON" placement="bottom">
-                      <div class="btn" @click="saveToJSON()" title="保存">
-                        <i class="iconfont icon-baocun"></i>
-                      </div>
-                    </el-tooltip>
-                  </div>
-                </div>
-              </el-collapse-item>
-            </el-collapse>
-          </el-tab-pane>
+          <el-tab-pane label="功能" name="third">功能</el-tab-pane>
         </el-tabs>
       </div>
     </custom-modal>
