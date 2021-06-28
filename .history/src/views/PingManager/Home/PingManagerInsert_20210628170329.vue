@@ -308,6 +308,13 @@ export default {
           allowBlank: false,
           snap: true,
           createEdge() {
+            // return new Shape.Edge({
+            //   attrs: _that.connectEdge.attrs,
+            //   label: _that.connectEdge.label,
+            //   connector: _that.connectEdge.connector,
+            //   router: _that.connectEdge.router,
+            //   zIndex: _that.connectEdge.zIndex,
+            // });
             return new Shape.Edge(_that.connectEdge);
           },
         },

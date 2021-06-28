@@ -19,10 +19,9 @@ function getBasicEdgeConfig() {
         label: {
             text: "",
         },
-        //连线方式
-        connector: "normal",
+        connector: 'normal',
         router: {
-            name: "",
+            name: _that.connectEdgeType.router.name || "",
         },
         zIndex: 0,
     }
@@ -30,25 +29,8 @@ function getBasicEdgeConfig() {
 
 // 实线 - 直线
 
-export const 直线箭头 = merge({
-    connector: "normal",
-    router: { name: "" },
-}, getBasicEdgeConfig())
+// 实线 - 曲线
 
-export const Normal = 直线箭头
-
-// 实线 - 曲线箭头
-export const 曲线箭头 = merge({
-    connector: "smooth",
-    router: { name: "" },
-}, getBasicEdgeConfig())
-
-
-// 实线 - 直角箭头
-export const 直角箭头 = merge({
-    connector: "normal",
-    router: { name: "manhattan" },
-}, getBasicEdgeConfig())
-
+// 实线 - 直角
 
 

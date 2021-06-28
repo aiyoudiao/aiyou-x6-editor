@@ -264,7 +264,31 @@ export default {
       value1: true,
       type: "grid",
       selectCell: "",
-      connectEdge: {},
+      connectEdge: {
+        attrs: {
+          line: {
+            stroke: "#1890ff",
+            strokeWidth: 1,
+            targetMarker: {
+              name: "classic",
+              size: 8,
+            },
+            strokeDasharray: 0, //虚线
+            style: {
+              animation: "ant-line 30s infinite linear",
+            },
+          },
+        },
+        label: {
+          text: "",
+        },
+        //连线方式
+        connector: "normal",
+        router: {
+          name: "",
+        },
+        zIndex: 0,
+      },
       showTips: false,
       currentArrow: "直线箭头",
       grid: {
@@ -308,6 +332,13 @@ export default {
           allowBlank: false,
           snap: true,
           createEdge() {
+            // return new Shape.Edge({
+            //   attrs: _that.connectEdge.attrs,
+            //   label: _that.connectEdge.label,
+            //   connector: _that.connectEdge.connector,
+            //   router: _that.connectEdge.router,
+            //   zIndex: _that.connectEdge.zIndex,
+            // });
             return new Shape.Edge(_that.connectEdge);
           },
         },
@@ -332,7 +363,7 @@ export default {
               }
             `);
       this.graph.fromJSON(data);
-      this.changeEdgeType(this.currentArrow)
+      // this.changeEdgeType(this.currentArrow)
       console.log("this.graph", this.graph);
       this.graph.history.redo();
       this.graph.history.undo();

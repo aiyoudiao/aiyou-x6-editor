@@ -19,15 +19,10 @@ export const changeEdgeTypeToGraph = (graph, type, vueEntity) => {
 
     let edgeConfig = EdgeMap[type] || EdgeMap['Normal']
 
-    vueEntity.$set(vueEntity, 'connectEdge', {
+    vueEntity.connectEdge = {
         ... vueEntity.connectEdge,
         ... edgeConfig
-    })
-
-    // vueEntity.connectEdge = {
-    //     ... vueEntity.connectEdge,
-    //     ... edgeConfig
-    // }
+    }
 
     graph.createEdge = function () {
         return new Shape.Edge(edgeConfig);

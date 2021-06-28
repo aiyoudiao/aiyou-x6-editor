@@ -1,5 +1,5 @@
 import * as baseEdgeMap from './baseEdgeMap'
 
-export default {
+export {
     ... baseEdgeMap
 }

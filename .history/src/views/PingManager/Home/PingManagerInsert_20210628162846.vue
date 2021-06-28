@@ -237,7 +237,7 @@ import { startDragToGraph, changeEdgeTypeToGraph } from "../Graph/methods.js";
 import CustomModal from "@/views/PingManager/Components/CustomModal/CustomModal.vue";
 import CustomElementsPannelVue from "../Components/CustomElementsPannel/CustomElementsPannel.vue";
 
-import pingManagerMixins from "./PingManagerMixins.js";
+import pingManagerMixins from './PingManagerMixins.js'
 
 const data = {};
 
@@ -264,9 +264,15 @@ export default {
       value1: true,
       type: "grid",
       selectCell: "",
-      connectEdge: {},
+      connectEdgeType: {
+        //连线方式
+        connector: "normal",
+        router: {
+          name: "",
+        },
+      },
       showTips: false,
-      currentArrow: "直线箭头",
+      currentArrow: '直线箭头',
       grid: {
         // 网格设置
         size: 20, // 网格大小 10px
@@ -306,10 +312,7 @@ export default {
           anchor: "center",
           connectionPoint: "anchor",
           allowBlank: false,
-          snap: true,
-          createEdge() {
-            return new Shape.Edge(_that.connectEdge);
-          },
+          snap: true
         },
         highlighting: {
           magnetAvailable: {
@@ -333,7 +336,7 @@ export default {
             `);
       this.graph.fromJSON(data);
       this.changeEdgeType(this.currentArrow)
-      console.log("this.graph", this.graph);
+
       this.graph.history.redo();
       this.graph.history.undo();
       // 鼠标移入移出节点
@@ -429,8 +432,8 @@ export default {
     },
     // 改变 边 形状
     changeEdgeType(type) {
-      changeEdgeTypeToGraph(this.graph, type, this);
-      this.currentArrow = type;
+      changeEdgeTypeToGraph(this.graph, type, this)
+      this.currentArrow = type
     },
   },
   computed: {},

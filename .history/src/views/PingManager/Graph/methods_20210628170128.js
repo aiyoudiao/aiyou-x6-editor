@@ -17,17 +17,17 @@ export const startDragToGraph = (graph, type, e) => {
 // 改变 边 形状
 export const changeEdgeTypeToGraph = (graph, type, vueEntity) => {
 
+    console.log('EdgeMap', EdgeMap)
+
     let edgeConfig = EdgeMap[type] || EdgeMap['Normal']
 
-    vueEntity.$set(vueEntity, 'connectEdge', {
+    console.log('edgeConfig：', edgeConfig)
+
+
+    vueEntity.connectEdge = {
         ... vueEntity.connectEdge,
         ... edgeConfig
-    })
-
-    // vueEntity.connectEdge = {
-    //     ... vueEntity.connectEdge,
-    //     ... edgeConfig
-    // }
+    }
 
     graph.createEdge = function () {
         return new Shape.Edge(edgeConfig);

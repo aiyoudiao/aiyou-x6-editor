@@ -1,7 +1,6 @@
 // import '@antv/x6-vue-shape';
 import { Graph, Shape, Addon, FunctionExt } from '@antv/x6';
 import NodeMap from './Node/nodeMap'
-import EdgeMap from './Edge/edgeMap'
 
 // 拖拽生成四边形或者圆形
 export const startDragToGraph = (graph, type, e) => {
@@ -16,20 +15,21 @@ export const startDragToGraph = (graph, type, e) => {
 
 // 改变 边 形状
 export const changeEdgeTypeToGraph = (graph, type, vueEntity) => {
-
-    let edgeConfig = EdgeMap[type] || EdgeMap['Normal']
-
-    vueEntity.$set(vueEntity, 'connectEdge', {
-        ... vueEntity.connectEdge,
-        ... edgeConfig
-    })
-
-    // vueEntity.connectEdge = {
-    //     ... vueEntity.connectEdge,
-    //     ... edgeConfig
-    // }
-
-    graph.createEdge = function () {
-        return new Shape.Edge(edgeConfig);
+    const that = vueEntity
+    if (type === "直线箭头") {
+        that.connectEdgeType = {
+            connector: "normal",
+            router: { name: "" },
+        };
+    } else if (type === "曲线箭头") {
+        that.connectEdgeType = {
+            connector: "smooth",
+            router: { name: "" },
+        };
+    } else if (type === '直角箭头') {
+        that.connectEdgeType = {
+            connector: "normal",
+            router: { name: "manhattan" },
+        };
     }
-}
+},

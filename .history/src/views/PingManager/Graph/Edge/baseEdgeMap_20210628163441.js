@@ -19,8 +19,7 @@ function getBasicEdgeConfig() {
         label: {
             text: "",
         },
-        //连线方式
-        connector: "normal",
+        connector: 'normal',
         router: {
             name: "",
         },

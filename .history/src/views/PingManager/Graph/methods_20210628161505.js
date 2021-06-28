@@ -16,20 +16,27 @@ export const startDragToGraph = (graph, type, e) => {
 
 // 改变 边 形状
 export const changeEdgeTypeToGraph = (graph, type, vueEntity) => {
+    const that = vueEntity
 
     let edgeConfig = EdgeMap[type] || EdgeMap['Normal']
-
-    vueEntity.$set(vueEntity, 'connectEdge', {
-        ... vueEntity.connectEdge,
-        ... edgeConfig
-    })
-
-    // vueEntity.connectEdge = {
-    //     ... vueEntity.connectEdge,
-    //     ... edgeConfig
-    // }
-
-    graph.createEdge = function () {
+    graph.connecting.createEdge = function () {
         return new Shape.Edge(edgeConfig);
+    }
+
+    if (type === "直线箭头") {
+        that.connectEdgeType = {
+            connector: "normal",
+            router: { name: "" },
+        };
+    } else if (type === "曲线箭头") {
+        that.connectEdgeType = {
+            connector: "smooth",
+            router: { name: "" },
+        };
+    } else if (type === '直角箭头') {
+        that.connectEdgeType = {
+            connector: "normal",
+            router: { name: "manhattan" },
+        };
     }
 }

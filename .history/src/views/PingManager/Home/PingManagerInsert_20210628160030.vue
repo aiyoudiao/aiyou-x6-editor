@@ -232,12 +232,12 @@
 import { DataUri, Graph, Shape, FunctionExt } from "@antv/x6";
 import insertCss from "insert-css";
 import { pingManagerConfigData } from "./PingManagerHome.conf";
-import { startDragToGraph, changeEdgeTypeToGraph } from "../Graph/methods.js";
+import { startDragToGraph } from "../Graph/methods.js";
 
 import CustomModal from "@/views/PingManager/Components/CustomModal/CustomModal.vue";
 import CustomElementsPannelVue from "../Components/CustomElementsPannel/CustomElementsPannel.vue";
 
-import pingManagerMixins from "./PingManagerMixins.js";
+import pingManagerMixins from './PingManagerMixins.js'
 
 const data = {};
 
@@ -264,9 +264,15 @@ export default {
       value1: true,
       type: "grid",
       selectCell: "",
-      connectEdge: {},
+      connectEdgeType: {
+        //连线方式
+        connector: "normal",
+        router: {
+          name: "",
+        },
+      },
       showTips: false,
-      currentArrow: "直线箭头",
+      currentArrow: 1,
       grid: {
         // 网格设置
         size: 20, // 网格大小 10px
@@ -308,7 +314,31 @@ export default {
           allowBlank: false,
           snap: true,
           createEdge() {
-            return new Shape.Edge(_that.connectEdge);
+            console.log("调用了");
+            return new Shape.Edge({
+              attrs: {
+                line: {
+                  stroke: "#1890ff",
+                  strokeWidth: 1,
+                  targetMarker: {
+                    name: "classic",
+                    size: 8,
+                  },
+                  strokeDasharray: 0, //虚线
+                  style: {
+                    animation: "ant-line 30s infinite linear",
+                  },
+                },
+              },
+              label: {
+                text: "",
+              },
+              connector: _that.connectEdgeType.connector,
+              router: {
+                name: _that.connectEdgeType.router.name || "",
+              },
+              zIndex: 0,
+            });
           },
         },
         highlighting: {
@@ -332,7 +362,6 @@ export default {
               }
             `);
       this.graph.fromJSON(data);
-      this.changeEdgeType(this.currentArrow)
       console.log("this.graph", this.graph);
       this.graph.history.redo();
       this.graph.history.undo();
@@ -428,9 +457,8 @@ export default {
       });
     },
     // 改变 边 形状
-    changeEdgeType(type) {
-      changeEdgeTypeToGraph(this.graph, type, this);
-      this.currentArrow = type;
+    changeEdgeType(e) {
+      changeEdgeTypeToGraph(this.graph, type, this)
     },
   },
   computed: {},
