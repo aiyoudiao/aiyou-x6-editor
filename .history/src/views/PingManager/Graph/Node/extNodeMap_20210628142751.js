@@ -1,4 +1,4 @@
-import { clone, merge } from '@/views/PingManager/Utils';
+import { clone } from '@/views/PingManager/Utils';
 import { ports } from './ports'
 import {
     核心路由器,
@@ -41,56 +41,26 @@ function getImgBasicConfig() {
     }
 }
 
-export const CoreRouter = merge({
+export const CoreRouter = Object.assign(getImgBasicConfig(), {
     imageUrl: 核心路由器,
-    attrs: {
-        label: {
-            text: '核心路由器'
-        }
-    }
-}, getImgBasicConfig())
+})
 
-export const CoreAlterMachine = merge({
+export const CoreAlterMachine = Object.assign(getImgBasicConfig(), {
     imageUrl: 核心交换机,
-    attrs: {
-        label: {
-            text: '核心交换机'
-        }
-    }
-}, getImgBasicConfig())
+})
 
-export const Server = merge( {
+export const Server = Object.assign(getImgBasicConfig(), {
     imageUrl: 服务器,
-        attrs: {
-        label: {
-            text: '服务器'
-        }
-    }
-}, getImgBasicConfig())
+})
 
-export const ManagerServer = merge({
+export const ManagerServer = Object.assign(getImgBasicConfig(), {
     imageUrl: 管理服务器,
-        attrs: {
-        label: {
-            text: '管理服务器'
-        }
-    }
-}, getImgBasicConfig())
+})
 
-export const User = merge( {
+export const User = Object.assign(getImgBasicConfig(), {
     imageUrl: 用户,
-        attrs: {
-        label: {
-            text: '用户'
-        }
-    }
-}, getImgBasicConfig())
+})
 
-export const Commander = merge({
+export const Commander = Object.assign(getImgBasicConfig(), {
     imageUrl: 终端机,
-        attrs: {
-        label: {
-            text: '终端机'
-        }
-    }
-}, getImgBasicConfig())
+})

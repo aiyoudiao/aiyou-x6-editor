@@ -90,39 +90,34 @@
                 </div>
               </el-collapse-item>
               <el-collapse-item title="基本节点">
-                <div>
-                  <div class="btn-group">
-                    <div
-                      class="btn"
-                      title="圆形节点"
-                      @mousedown="startDrag('Circle', $event)"
-                    >
-                      <i class="iconfont icon-circle"></i>
-                    </div>
-                    <div
-                      class="btn"
-                      title="正方形节点"
-                      @mousedown="startDrag('Rect', $event)"
-                    >
-                      <i class="iconfont icon-square"></i>
-                    </div>
-                    <div
-                      class="btn"
-                      title="条件节点"
-                      style="vertical-align: bottom"
-                    >
-                      <i
-                        class="iconfont icon-square rotate-square"
-                        @mousedown="startDrag('Condition', $event)"
-                      ></i>
-                    </div>
-                    <!-- <div class="btn-group_tips" v-if="showTips">
-                      拖拽生成 <br />拓扑图形
-                    </div> -->
-                  </div>
-                </div>
+              
+        <div class="btn-group">
+          <div
+            class="btn"
+            title="圆形节点"
+            @mousedown="startDrag('Circle', $event)"
+          >
+            <i class="iconfont icon-circle"></i>
+          </div>
+          <div
+            class="btn"
+            title="正方形节点"
+            @mousedown="startDrag('Rect', $event)"
+          >
+            <i class="iconfont icon-square"></i>
+          </div>
+          <div class="btn" title="条件节点" style="vertical-align: bottom;">
+            <i
+              class="iconfont icon-square rotate-square"
+              @mousedown="startDrag('Condition', $event)"
+            ></i>
+          </div>
+          <div class="btn-group_tips" v-if="showTips">
+            拖拽生成 <br />拓扑图形
+          </div>
+        </div>
               </el-collapse-item>
-            </el-collapse>
+            <el-collapse>
           </el-tab-pane>
           <el-tab-pane label="线" name="second">线</el-tab-pane>
           <el-tab-pane label="功能" name="third">功能</el-tab-pane>

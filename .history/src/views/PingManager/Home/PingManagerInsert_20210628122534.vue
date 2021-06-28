@@ -24,7 +24,7 @@
                       :src="核心路由器"
                       width="30"
                       height="30"
-                      @mousedown="startDrag('CoreRouter', $event)"
+                      @mousedown="startDrag('Condition', $event)"
                     />
                   </span>
                   <span
@@ -36,7 +36,7 @@
                       :src="核心交换机"
                       width="30"
                       height="30"
-                      @mousedown="startDrag('CoreAlterMachine', $event)"
+                      @mousedown="startDrag('Condition', $event)"
                     />
                   </span>
                   <span
@@ -48,7 +48,7 @@
                       :src="服务器"
                       width="30"
                       height="30"
-                      @mousedown="startDrag('Server', $event)"
+                      @mousedown="startDrag('Condition', $event)"
                     />
                   </span>
                   <span
@@ -60,7 +60,7 @@
                       :src="管理服务器"
                       width="30"
                       height="30"
-                      @mousedown="startDrag('ManagerServer', $event)"
+                      @mousedown="startDrag('Condition', $event)"
                     />
                   </span>
                   <span
@@ -72,7 +72,7 @@
                       :src="用户"
                       width="30"
                       height="30"
-                      @mousedown="startDrag('User', $event)"
+                      @mousedown="startDrag('Condition', $event)"
                     />
                   </span>
                   <span
@@ -84,42 +84,14 @@
                       :src="终端机"
                       width="30"
                       height="30"
-                      @mousedown="startDrag('Commander', $event)"
+                      @mousedown="startDrag('Condition', $event)"
                     />
                   </span>
                 </div>
               </el-collapse-item>
               <el-collapse-item title="基本节点">
                 <div>
-                  <div class="btn-group">
-                    <div
-                      class="btn"
-                      title="圆形节点"
-                      @mousedown="startDrag('Circle', $event)"
-                    >
-                      <i class="iconfont icon-circle"></i>
-                    </div>
-                    <div
-                      class="btn"
-                      title="正方形节点"
-                      @mousedown="startDrag('Rect', $event)"
-                    >
-                      <i class="iconfont icon-square"></i>
-                    </div>
-                    <div
-                      class="btn"
-                      title="条件节点"
-                      style="vertical-align: bottom"
-                    >
-                      <i
-                        class="iconfont icon-square rotate-square"
-                        @mousedown="startDrag('Condition', $event)"
-                      ></i>
-                    </div>
-                    <!-- <div class="btn-group_tips" v-if="showTips">
-                      拖拽生成 <br />拓扑图形
-                    </div> -->
-                  </div>
+                  123
                 </div>
               </el-collapse-item>
             </el-collapse>

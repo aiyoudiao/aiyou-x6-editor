@@ -116,9 +116,9 @@
                         @mousedown="startDrag('Condition', $event)"
                       ></i>
                     </div>
-                    <!-- <div class="btn-group_tips" v-if="showTips">
+                    <div class="btn-group_tips" v-if="showTips">
                       拖拽生成 <br />拓扑图形
-                    </div> -->
+                    </div>
                   </div>
                 </div>
               </el-collapse-item>
