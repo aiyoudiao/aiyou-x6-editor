@@ -2,7 +2,7 @@ export const pingManagerConfigData = {
     // 节点
     nodes: [
         {
-            id: 'node-2021-06-16-001', shape: 'rect', x: 40, y: 40, width: 80, height: 40, label: 'first x6 node',
+            id: 'node-2021-06-16-001', shape: 'rect', x: 400, y: 400, width: 80, height: 40, label: 'first x6 node',
             attrs: {
                 body: {
                     fill: '#2ecc',

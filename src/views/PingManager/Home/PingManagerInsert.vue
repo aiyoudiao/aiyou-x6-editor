@@ -202,9 +202,15 @@
                         <i class="iconfont icon-baocun"></i>
                       </div>
                     </el-tooltip>
-                    <el-tooltip content="保存JSON" placement="bottom">
-                      <div class="btn" @click="saveToJSON()" title="保存">
-                        <i class="iconfont icon-baocun"></i>
+                    <el-tooltip content="导出JSON" placement="bottom">
+                      <div class="btn" @click="saveToJSON()" title="导出">
+                        <i class="iconfont2 icon-xiazai"></i>
+                      </div>
+                    </el-tooltip>
+
+                    <el-tooltip content="上传JSON" placement="bottom">
+                      <div class="btn" @click="uploadToJSON()" title="上传">
+                        <i class="iconfont2 icon-shangchuan"></i>
                       </div>
                     </el-tooltip>
                   </div>
@@ -224,6 +230,47 @@
       :grid="grid"
       @deleteNode="deleteNode"
     ></custom-elements-pannel>
+
+    <!-- 导入JSON文件弹框 -->
+    <el-dialog title="导入JSON文件" :visible.sync="dialogVisible" width="21%">
+      <el-upload
+        drag
+        :limit="1"
+        action="https://jsonplaceholder.typicode.com/posts/"
+        ref="upload"
+        accept=".json"
+        :file-list="fileList"
+        :on-success="onSuccess"
+        :on-remove="onRemove"
+      >
+        <i class="el-icon-upload"></i>
+        <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+        <div class="el-upload__tip" slot="tip">
+          上传json文件，且只能上传 1 个文件
+        </div>
+      </el-upload>
+
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogVisible = false">取 消</el-button>
+        <el-button type="primary" @click="dialogVisibleClick">确 定</el-button>
+      </span>
+    </el-dialog>
+    
+    <!-- 节点鼠标右键菜单 -->
+    <div id="mouseRightDiv" v-show="rightDivShow" style="width: 80px; height: 50px;">
+      <el-menu>
+        <el-menu-item>
+          <el-button type="text" @click="deleteButton">删除</el-button>
+        </el-menu-item>
+        <el-menu-item>
+          <el-button type="text">添加</el-button>
+        </el-menu-item>
+        <el-menu-item>
+          <el-button type="text">跳转</el-button>
+        </el-menu-item>
+      </el-menu>
+    </div>
+
   </div>
 </template>
 
@@ -239,7 +286,9 @@ import CustomElementsPannelVue from "../Components/CustomElementsPannel/CustomEl
 
 import pingManagerMixins from "./PingManagerMixins.js";
 
-const data = {};
+const data = {
+  ...pingManagerConfigData
+}
 
 export default {
   name: "PingManagerInsert",
@@ -250,6 +299,11 @@ export default {
   },
   data() {
     return {
+      dialogVisible: false,
+      fileList: [],
+      uploadData: [],
+      rightDivShow: false,
+      targetObj: '',
       graphID: "x6-editor-2021-06-16-001",
       //#region Modal
       showAttrModal: true,
@@ -281,9 +335,6 @@ export default {
     };
   },
   methods: {
-    closeModalHandler() {},
-    confirmModalHandler() {},
-
     initX6() {
       var _that = this;
       this.graph = new Graph({
@@ -324,6 +375,7 @@ export default {
           },
         },
       });
+      // 
       insertCss(`
               @keyframes ant-line {
                 to {
@@ -332,10 +384,31 @@ export default {
               }
             `);
       this.graph.fromJSON(data);
-      this.changeEdgeType(this.currentArrow)
+      this.changeEdgeType(this.currentArrow);
       console.log("this.graph", this.graph);
-      this.graph.history.redo();
-      this.graph.history.undo();
+      // this.graph.history.redo(); // 重做 再做 改装
+      // this.graph.history.undo(); // 解开 取消 撤销 废除
+      // 节点-鼠标右键事件
+      this.graph.on("node:contextmenu", ({ e, x, y, cell, view }) => {
+        this.targetObj = cell 
+        this.rightDivShow = true;   
+        var divObj = document.getElementById("mouseRightDiv")
+        divObj.style.position = 'absolute'
+        divObj.style.left = e.clientX + "px"
+        divObj.style.top = e.clientY + "px"
+
+      });
+
+      // 边-鼠标右键事件
+      this.graph.on("edge:contextmenu", ({ e, x, y, cell, view }) => {
+        this.targetObj = cell 
+        this.rightDivShow = true;   
+        const divObj = document.getElementById("mouseRightDiv")
+        divObj.style.position = 'absolute'
+        divObj.style.left = e.clientX + "px"
+        divObj.style.top = e.clientY + "px"
+      });
+      
       // 鼠标移入移出节点
       this.graph.on(
         "node:mouseenter",
@@ -351,13 +424,20 @@ export default {
         const ports = container.querySelectorAll(".x6-port-body");
         this.showPorts(ports, false);
       });
+      // 点击空白处所触发的事件
       this.graph.on("blank:click", () => {
         this.type = "grid";
+        console.log('this.type', this.type)
+        this.rightDivShow = false;
       });
+      // 
       this.graph.on("cell:click", ({ cell }) => {
         this.type = cell.isNode() ? "node" : "edge";
+         console.log('this.type', this.type)
       });
+      // 
       this.graph.on("selection:changed", (args) => {
+        console.log('args', args)
         args.added.forEach((cell) => {
           this.selectCell = cell;
           if (cell.isEdge()) {
@@ -383,6 +463,14 @@ export default {
         });
       });
     },
+
+    // 删除
+    deleteButton() {
+      this.graph.removeCell(this.targetObj);
+      this.type = "grid";
+      this.rightDivShow = false;
+    },
+
     showPorts(ports, show) {
       for (let i = 0, len = ports.length; i < len; i = i + 1) {
         ports[i].style.visibility = show ? "visible" : "hidden";
@@ -420,13 +508,51 @@ export default {
         );
       });
     },
-    // 保存json
+    // 导出json
     saveToJSON() {
       this.$nextTick(() => {
-        const data = this.graph.toJSON();
+        let data = this.graph.toJSON();
+        data = JSON.stringify(data);
         console.log("data", data);
+
+        let uri =
+          "data:text/csv;charset=utf-8,\ufeff" + encodeURIComponent(data);
+        //通过创建a标签实现
+        let link = document.createElement("a");
+        link.href = uri;
+        //对下载的文件命名
+        link.download = "json数据表.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
       });
     },
+    // 上传JSON
+    uploadToJSON() {
+      this.dialogVisible = true;
+    },
+    onSuccess(res, file, fileList) {
+      console.log("file", file);
+      let reader = new FileReader();
+      reader.readAsText(file.raw);
+      reader.onload = (e) => {
+        this.uploadData = JSON.parse(e.target.result);
+        this.graph.fromJSON(this.uploadData);
+
+        console.log("this.uploadData", this.uploadData);
+      };
+    },
+    onRemove(file) {
+      this.fileList = [];
+    },
+    // 上传JSON弹框中的确定事件
+    dialogVisibleClick() {
+      // this.graph = this.uploadData
+      // this.graph = JSON.stringify(this.uploadData);
+
+      this.dialogVisible = false;
+    },
+
     // 改变 边 形状
     changeEdgeType(type) {
       changeEdgeTypeToGraph(this.graph, type, this);
@@ -450,6 +576,7 @@ export default {
 <style lang="scss" scoped>
 #ping-manager-insert.ping-manager-insert {
   @import "../CSS/iconfont.css";
+  @import "../CSS/iconfont3.css";
   @import "../CSS/ping-manager-insert.scss";
 
   #x6-editor {
