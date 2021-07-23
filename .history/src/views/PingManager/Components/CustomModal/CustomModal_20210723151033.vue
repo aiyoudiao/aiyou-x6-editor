@@ -1,8 +1,7 @@
 <template>
   <div>
     <div class="open" v-if="!show" @click="open">
-      <!-- <i class="el-icon-s-fold"></i> -->
-      <svg-icon icon-class="ZhanKai" />
+      <i class="el-icon-s-fold"></i>
     </div>
     <transition name="modal">
       <div
@@ -110,11 +109,8 @@ export default {
   .close {
     text-align: center;
     position: absolute;
-    background: #fff;
-    z-index: 9999999;
     top: 2px;
-    left: -58px;
-    padding: 20px;
+    left: -16px;
     cursor: pointer;
     box-shadow: -3px 2px 8px 0 #b1b1b1;
     .el-icon-close {
@@ -133,9 +129,6 @@ export default {
 .open {
     text-align: center;
     position: absolute;
-    padding: 20px;
-    background: #fff;
-    z-index: 9999999;
     top: 3px;
     right: 0px;
     cursor: pointer;

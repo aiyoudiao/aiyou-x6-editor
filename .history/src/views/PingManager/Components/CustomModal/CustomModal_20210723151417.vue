@@ -110,8 +110,6 @@ export default {
   .close {
     text-align: center;
     position: absolute;
-    background: #fff;
-    z-index: 9999999;
     top: 2px;
     left: -58px;
     padding: 20px;
@@ -133,9 +131,6 @@ export default {
 .open {
     text-align: center;
     position: absolute;
-    padding: 20px;
-    background: #fff;
-    z-index: 9999999;
     top: 3px;
     right: 0px;
     cursor: pointer;
