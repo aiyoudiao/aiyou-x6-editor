@@ -178,16 +178,14 @@
                       @click="changeMode('edit')"
                       title="选择模式"
                     >
-                      <!-- <i class="iconfont icon-mousepointershubiao"></i> -->
-                      <svg-icon icon-class="DianJi" />
+                      <i class="iconfont icon-mousepointershubiao"></i>
                     </div>
                     <div
                       class="btn"
                       @click="changeMode('drag')"
                       title="拖拽模式"
                     >
-                      <!-- <i class="iconfont icon-tuozhuai"></i> -->
-                      <svg-icon icon-class="TuoZhuai" />
+                      <i class="iconfont icon-tuozhuai"></i>
                     </div>
                   </div>
                   <div class="btn-group">
@@ -197,27 +195,23 @@
                         @click="deleteNode()"
                         style="margin-top: 5px"
                       >
-                        <!-- <i class="iconfont icon-shanchu"></i> -->
-                        <svg-icon icon-class="ShanChu" />
+                        <i class="iconfont icon-shanchu"></i>
                       </div>
                     </el-tooltip>
                     <el-tooltip content="保存PNG" placement="bottom">
                       <div class="btn" @click="saveToPNG()" title="保存">
-                        <!-- <i class="iconfont icon-baocun"></i> -->
-                        <svg-icon icon-class="BaoCun" />
+                        <i class="iconfont icon-baocun"></i>
                       </div>
                     </el-tooltip>
                     <el-tooltip content="导出JSON" placement="bottom">
                       <div class="btn" @click="saveToJSON()" title="导出">
-                        <!-- <i class="iconfont2 icon-xiazai"></i> -->
-                        <svg-icon icon-class="XiaZai" />
+                        <i class="iconfont2 icon-xiazai"></i>
                       </div>
                     </el-tooltip>
 
                     <el-tooltip content="上传JSON" placement="bottom">
                       <div class="btn" @click="uploadToJSON()" title="上传">
-                        <!-- <i class="iconfont2 icon-shangchuan"></i> -->
-                        <svg-icon icon-class="ShangChuan" />
+                        <i class="iconfont2 icon-shangchuan"></i>
                       </div>
                     </el-tooltip>
                   </div>
@@ -584,6 +578,8 @@ export default {
 
 <style lang="scss" scoped>
 #ping-manager-insert.ping-manager-insert {
+  @import "../CSS/iconfont.css";
+  @import "../CSS/iconfont3.css";
   @import "../CSS/ping-manager-insert.scss";
 
   #x6-editor {

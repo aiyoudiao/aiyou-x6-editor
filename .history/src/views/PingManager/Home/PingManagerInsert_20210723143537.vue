@@ -97,22 +97,27 @@
                       title="圆形节点"
                       @mousedown="startDrag('Circle', $event)"
                     >
-                      <svg-icon icon-class="YuanQuan" />
+                      <!-- <i class="iconfont icon-circle"></i> -->
+                                  <svg-icon
+                icon-class="YuanQuan"
+              />
                     </div>
                     <div
                       class="btn"
-                      title="长方形节点"
+                      title="正方形节点"
                       @mousedown="startDrag('Rect', $event)"
                     >
-                      <svg-icon icon-class="ChangFangXing" />
+                      <i class="iconfont icon-square"></i>
                     </div>
                     <div
                       class="btn"
                       title="条件节点"
                       style="vertical-align: bottom"
-                      @mousedown="startDrag('Condition', $event)"
                     >
-                      <svg-icon icon-class="LingXing" />
+                      <i
+                        class="iconfont icon-square rotate-square"
+                        @mousedown="startDrag('Condition', $event)"
+                      ></i>
                     </div>
                     <!-- <div class="btn-group_tips" v-if="showTips">
                       拖拽生成 <br />拓扑图形
@@ -135,8 +140,7 @@
                         ]"
                         @click="changeEdgeType('直线箭头')"
                       >
-                        <!-- <i class="iconfont icon-ai28"></i> -->
-                        <svg-icon icon-class="ZhiXian" />
+                        <i class="iconfont icon-ai28"></i>
                       </div>
                     </el-tooltip>
                     <el-tooltip content="曲线箭头" placement="bottom">
@@ -147,8 +151,7 @@
                         ]"
                         @click="changeEdgeType('曲线箭头')"
                       >
-                        <!-- <i class="iconfont icon-Down-Right"></i> -->
-                        <svg-icon icon-class="QuXian" />
+                        <i class="iconfont icon-Down-Right"></i>
                       </div>
                     </el-tooltip>
                     <el-tooltip content="直角箭头" placement="bottom">
@@ -159,8 +162,7 @@
                         ]"
                         @click="changeEdgeType('直角箭头')"
                       >
-                        <!-- <i class="iconfont icon-jiantou"></i> -->
-                        <svg-icon icon-class="ZheXian" />
+                        <i class="iconfont icon-jiantou"></i>
                       </div>
                     </el-tooltip>
                   </div>
@@ -178,16 +180,14 @@
                       @click="changeMode('edit')"
                       title="选择模式"
                     >
-                      <!-- <i class="iconfont icon-mousepointershubiao"></i> -->
-                      <svg-icon icon-class="DianJi" />
+                      <i class="iconfont icon-mousepointershubiao"></i>
                     </div>
                     <div
                       class="btn"
                       @click="changeMode('drag')"
                       title="拖拽模式"
                     >
-                      <!-- <i class="iconfont icon-tuozhuai"></i> -->
-                      <svg-icon icon-class="TuoZhuai" />
+                      <i class="iconfont icon-tuozhuai"></i>
                     </div>
                   </div>
                   <div class="btn-group">
@@ -197,27 +197,23 @@
                         @click="deleteNode()"
                         style="margin-top: 5px"
                       >
-                        <!-- <i class="iconfont icon-shanchu"></i> -->
-                        <svg-icon icon-class="ShanChu" />
+                        <i class="iconfont icon-shanchu"></i>
                       </div>
                     </el-tooltip>
                     <el-tooltip content="保存PNG" placement="bottom">
                       <div class="btn" @click="saveToPNG()" title="保存">
-                        <!-- <i class="iconfont icon-baocun"></i> -->
-                        <svg-icon icon-class="BaoCun" />
+                        <i class="iconfont icon-baocun"></i>
                       </div>
                     </el-tooltip>
                     <el-tooltip content="导出JSON" placement="bottom">
                       <div class="btn" @click="saveToJSON()" title="导出">
-                        <!-- <i class="iconfont2 icon-xiazai"></i> -->
-                        <svg-icon icon-class="XiaZai" />
+                        <i class="iconfont2 icon-xiazai"></i>
                       </div>
                     </el-tooltip>
 
                     <el-tooltip content="上传JSON" placement="bottom">
                       <div class="btn" @click="uploadToJSON()" title="上传">
-                        <!-- <i class="iconfont2 icon-shangchuan"></i> -->
-                        <svg-icon icon-class="ShangChuan" />
+                        <i class="iconfont2 icon-shangchuan"></i>
                       </div>
                     </el-tooltip>
                   </div>
@@ -264,11 +260,7 @@
     </el-dialog>
 
     <!-- 节点鼠标右键菜单 -->
-    <div
-      id="mouseRightDiv"
-      v-show="rightDivShow"
-      style="width: 80px; height: 50px"
-    >
+    <div id="mouseRightDiv" v-show="rightDivShow" style="width: 80px; height: 50px;">
       <el-menu>
         <el-menu-item>
           <el-button type="text" @click="deleteButton">删除</el-button>
@@ -281,6 +273,7 @@
         </el-menu-item>
       </el-menu>
     </div>
+
   </div>
 </template>
 
@@ -297,8 +290,8 @@ import CustomElementsPannelVue from "../Components/CustomElementsPannel/CustomEl
 import pingManagerMixins from "./PingManagerMixins.js";
 
 const data = {
-  ...pingManagerConfigData,
-};
+  ...pingManagerConfigData
+}
 
 export default {
   name: "PingManagerInsert",
@@ -313,7 +306,7 @@ export default {
       fileList: [],
       uploadData: [],
       rightDivShow: false,
-      targetObj: "",
+      targetObj: '',
       graphID: "x6-editor-2021-06-16-001",
       //#region Modal
       showAttrModal: true,
@@ -400,22 +393,23 @@ export default {
       // this.graph.history.undo(); // 解开 取消 撤销 废除
       // 节点-鼠标右键事件
       this.graph.on("node:contextmenu", ({ e, x, y, cell, view }) => {
-        this.targetObj = cell;
+        this.targetObj = cell
         this.rightDivShow = true;
-        var divObj = document.getElementById("mouseRightDiv");
-        divObj.style.position = "absolute";
-        divObj.style.left = e.clientX + "px";
-        divObj.style.top = e.clientY + "px";
+        var divObj = document.getElementById("mouseRightDiv")
+        divObj.style.position = 'absolute'
+        divObj.style.left = e.clientX + "px"
+        divObj.style.top = e.clientY + "px"
+
       });
 
       // 边-鼠标右键事件
       this.graph.on("edge:contextmenu", ({ e, x, y, cell, view }) => {
-        this.targetObj = cell;
+        this.targetObj = cell
         this.rightDivShow = true;
-        const divObj = document.getElementById("mouseRightDiv");
-        divObj.style.position = "absolute";
-        divObj.style.left = e.clientX + "px";
-        divObj.style.top = e.clientY + "px";
+        const divObj = document.getElementById("mouseRightDiv")
+        divObj.style.position = 'absolute'
+        divObj.style.left = e.clientX + "px"
+        divObj.style.top = e.clientY + "px"
       });
 
       // 鼠标移入移出节点
@@ -436,17 +430,17 @@ export default {
       // 点击空白处所触发的事件
       this.graph.on("blank:click", () => {
         this.type = "grid";
-        console.log("this.type", this.type);
+        console.log('this.type', this.type)
         this.rightDivShow = false;
       });
       //
       this.graph.on("cell:click", ({ cell }) => {
         this.type = cell.isNode() ? "node" : "edge";
-        console.log("this.type", this.type);
+         console.log('this.type', this.type)
       });
       //
       this.graph.on("selection:changed", (args) => {
-        console.log("args", args);
+        console.log('args', args)
         args.added.forEach((cell) => {
           this.selectCell = cell;
           if (cell.isEdge()) {
@@ -584,6 +578,8 @@ export default {
 
 <style lang="scss" scoped>
 #ping-manager-insert.ping-manager-insert {
+  @import "../CSS/iconfont.css";
+  @import "../CSS/iconfont3.css";
   @import "../CSS/ping-manager-insert.scss";
 
   #x6-editor {
@@ -595,9 +591,5 @@ export default {
     position: relative;
     margin: 0 0;
   }
-}
-
-.btn {
-  font-size: 25px;
 }
 </style>

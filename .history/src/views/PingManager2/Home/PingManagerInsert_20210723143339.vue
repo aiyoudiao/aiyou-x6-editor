@@ -39,7 +39,10 @@
             title="圆形节点"
             @mousedown="startDrag('Circle', $event)"
           >
-            <i class="iconfont icon-circle"></i>
+            <!-- <i class="iconfont icon-circle"></i> -->
+            <svg-icon
+                icon-class="YuanQuan"
+              />
           </div>
           <div
             class="btn"

@@ -584,6 +584,7 @@ export default {
 
 <style lang="scss" scoped>
 #ping-manager-insert.ping-manager-insert {
+
   @import "../CSS/ping-manager-insert.scss";
 
   #x6-editor {
